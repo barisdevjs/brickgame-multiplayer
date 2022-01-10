@@ -1,13 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Source+Sans+3:ital@1&display=swap');
+
 body {
     display: grid;
-    place-items: center;
+    width: 90vw;
+    height: 90vh;
+    grid-template-areas: 
+            "c b b b b"
+            "c b b b b"
+            "c b b b b";
+    font-family: "Source+Sans+Pro", sans-serif;
+    font-size: 1.25rem;
+    /* make a smooth background color  yellow  lightblue */
+    background: rgb(236, 235, 235);
 }
 
 
 #game {
     border: 1px dashed #000;
-    width: 800px;
+    width: 840px;
     height: 600px;
+    grid-area: b;
+    margin-left: auto;
+    margin-right: 0;
+    /* make a smooth box-shadow*/
+    box-shadow: 
+    0 0 20px  #000,
+    0 0 30px rgb(24, 23, 23),
+    0 0 40px rgb(54, 50, 50);
 }
 
 img {
@@ -17,4 +36,25 @@ img {
 #wall {
     width: 52px;
     height: 24px;
+}
+
+.info {
+    grid-area: c;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #b3ebde;
+    margin-left: 10vw;
+    color:#0c1e35;
+    border: 5px solid hsl(0, 0%, 40%);
+    padding: 5px;
+    outline: 5px solid hsl(0, 0%, 60%);
+    box-shadow:
+    0 0 0 10px hsl(0, 0%, 80%),
+    0 0 0 15px hsl(0, 0%, 90%);
+}
+
+.info h2,h1 {
+    text-align: center;
 }

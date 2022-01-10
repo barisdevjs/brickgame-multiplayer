@@ -1,14 +1,19 @@
-import { collisionDetector } from "./collision.js";
 
 export default class Ball {
-    constructor(game,walls) {
+    constructor(game) {
     this.ballImage = document.getElementById('ball');
     this.gameWidth = game.gameWidth;
     this.gameHeight = game.gameHeight;
     this.position = {x: 10, y: 10};
     this.speed = {x:1, y:7}
-    this.size = 15;
+    this.size = 16;
     this.game = game; // we can use game with other methods
+    this.player1scoreElement = document.getElementById('player1-score');
+    this.player2scoreElement = document.getElementById('player2-score');
+    this.player1scoreElementAttr = this.player1scoreElement.getAttribute('data-player');
+    this.player2scoreElementAttr = this.player2scoreElement.getAttribute('data-player');
+    this.scoreElements = [this.player1scoreElement, this.player2scoreElement];
+    this.levelElement = document.getElementById('level');
 }
 
 draw(ctx) {
@@ -32,12 +37,19 @@ draw(ctx) {
                 ) this.speed.x = -this.speed.x
     
                 // check wall top or bottom
-            if (
-                this.position.y + this.size > this.gameHeight ||
-                this.position.y < 0 
-            )   this.speed.y = -this.speed.y
+            if ( this.position.y + this.size > this.gameHeight ) 
+                {  this.speed.y = -this.speed.y
+                    this.player2scoreElement.innerHTML =
+                    Number(this.player2scoreElement.innerHTML) + 1
+                }
 
+            if ( this.position.y < 0 ) {
+                this.speed.y = -this.speed.y
+                this.player1scoreElement.innerHTML =
+                Number(this.player1scoreElement.innerHTML) + 1
+            }
             
+
 
             // check collision with players
     
@@ -51,8 +63,8 @@ draw(ctx) {
              this.game.player.width;
             
             if (bottomOfBall >= topOfPlayer &&
-                this.position.x >= leftOfPlayer &&
-                this.position.x  + this.size <= rightOfPlayer) {
+                this.position.x + this.size/2 >= leftOfPlayer &&
+                this.position.x  + this.size/2 <= rightOfPlayer) {
                 this.speed.y = -this.speed.y;
                 this.position.y = this.game.player.position.y - this.size;
             }
@@ -63,34 +75,40 @@ draw(ctx) {
              this.game.player2.width;
             
             if (topOfBall <= bottomOfPlayer2 &&
-                this.position.x >= leftOfPlayer2 &&
-                this.position.x  + this.size <= rightOfPlayer2) {
+                this.position.x  + this.size/2 >= leftOfPlayer2 &&
+                this.position.x  + this.size/2 <= rightOfPlayer2) {
                 this.speed.y = -this.speed.y;
                 this.position.y = this.game.player2.position.y + this.size;
             }
+             
+            // check collision with rocks
+            for (let i = 0; i < this.game.walls.length; i++) {
+                const wall = this.game.walls[i];
+                const wallTop = wall.position.y;
+                const wallBottom = wall.position.y + wall.height;
+                const wallLeft = wall.position.x;
+                const wallRight = wall.position.x + wall.width;
 
-            // check collision with walls 
-            // We will continueHEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-
-            const topOfWalls = [
-            this.game.walls[0].position,
-            this.game.walls[1].position,
-            this.game.walls[2].position,
-            this.game.walls[3].position
-        ]
-/* 
-            const xAxisOfWalls = [
-            this.game.walls[0].position.x,
-            this.game.walls[1].position.x,
-            this.game.walls[2].position.x,
-            this.game.walls[3].position.x
-           ]   
-*/
-            if ( topOfWalls.some(e => e.position === this.position) )
-            {
-                this.speed.y = -this.speed.y;
+                if (
+                    bottomOfBall >= wallTop &&
+                    this.position.x >= wallLeft  - this.size *.25 &&
+                    this.position.x  + this.size * .75 <= wallRight &&
+                    this.position.y < wallTop
+                ) {
+                    this.speed.y = -this.speed.y;
+                    this.position.y = wallTop - this.size ;
+                }    
+               
+                if (
+                    topOfBall <= wallBottom &&
+                    this.position.x + this.size * .25 >= wallLeft &&
+                    this.position.x  + this.size * .75 <= wallRight &&
+                    this.position.y + this.size/2 > wallBottom
+                ) {
+                    this.speed.y = -this.speed.y;
+                    this.position.y = wallBottom + this.size ;
+                } 
             }  
-
 
     }   
 }

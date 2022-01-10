@@ -9,8 +9,30 @@
     <title>Deneme</title>
 </head>
 <body>
-    <canvas id="game" width='800' height='600'></canvas>
+    <div class="info">
+        <div class="player1">
+            <div class="player1-name">
+                <h1>Player 2</h1>
+            </div>
+            <div>
+                <h1 id ="player2-score" data-player='You LOST'>0</h1>
+            </div>
+        </div>
+        <div class="level">
+            <h2>Level: <span id="level">1</span></h2>
+        </div>
+        <div class="player1">
+            <div >
+                <h1 id="player1-score" data-player='You WIN'>0</h1>
+            </div>
+            <div class="player1-name">
+                <h1>Player 1</h1>
+            </div>
+        </div>
+    </div>
+    <canvas id="game" width='840' height='600'></canvas>
     <img id='ball' src='assets/images/ball.png' alt='ball'/>
     <img id='wall' src='assets/images/wall1.jpg' alt='wall'/>
+    <img id='gameOver' src='assets/images/gameover.jpg' alt='gameOver'/>
 </body>
 </html>

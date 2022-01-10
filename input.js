@@ -1,5 +1,5 @@
 export default class InputHandler {
-    constructor(player) {
+    constructor(player,game) {
         document.addEventListener('keydown', (event) => {
             switch (event.key) {
                 case 'ArrowLeft':
@@ -7,6 +7,12 @@ export default class InputHandler {
                     break;
                 case 'ArrowRight': 
                     player.moveRight();
+                    break;
+                case 'Escape':
+                    game.togglePause();
+                    break;
+                case ' ':
+                    game.start()
                     break;
             }
         });

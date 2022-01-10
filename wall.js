@@ -3,8 +3,8 @@ export default class Wall {
         this.wallImage = document.getElementById("wall");
         this.game = game;
         this.position = position;
-        this.width = 52;
-        this.height = 34;
+        this.width = 70;
+        this.height = 20;
     }
 
     update(deltaTime) {

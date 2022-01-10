@@ -9,7 +9,6 @@ const gameHeight = canvas.height;
 
 
 let game = new Game(gameWidth, gameHeight);
-game.start();
 
 let lastTime = 0;
 
