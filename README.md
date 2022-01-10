@@ -1,6 +1,6 @@
 # This is a single brick game
 ---
-[ LIVE  Demo](https://brickgamesingleplayer.netlify.app/)
+[ LIVE  Demo](https://stoic-morse-889ffe.netlify.app/)
 
 ## Below you will see the page of a game
 
